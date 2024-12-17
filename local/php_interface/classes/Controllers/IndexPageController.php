@@ -25,10 +25,12 @@ class IndexPageController extends IndexService implements ControllersInterface
 
         $viewData = ViewData::getInstance();
         $options = OptionsData::getInstance();
-
+        $
         $testData = $viewData->cache(
             'test_data_key',
-            fn() => $this->getTestData($options)
+            fn() => $this->getTestData($options),
+            86000,
+          'iblock_id_' . \IBlockData::getByCode('test') // for this we can add handlers on add/update/delete in target iblock and clearing tagged cache
         );
 
         // Sends test data to the view via the singleton class.
