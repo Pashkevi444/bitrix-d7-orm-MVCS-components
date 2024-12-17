@@ -48,17 +48,12 @@ class FavoritesTable extends DataManager
                 ]
             ),
             new IntegerField(
-                'JKKP_ID',
+                'ITEM_ID',
                 [
                     'title' => Loc::getMessage('FAVORITES_ENTITY_JKKP_ID_FIELD'),
                 ]
             ),
-            new IntegerField(
-                'OBJECT_ID',
-                [
-                    'title' => Loc::getMessage('FAVORITES_ENTITY_OBJECT_ID_FIELD'),
-                ]
-            ),
+
             new StringField(
                 'USER_ID',
                 [
