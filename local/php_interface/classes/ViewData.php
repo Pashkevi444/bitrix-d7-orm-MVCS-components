@@ -98,28 +98,45 @@ class ViewData implements ViewDataInterface
      * @param string $cacheKey The unique cache key.
      * @param callable $callback A callback function to generate the data.
      * @param int $cacheTime Cache expiration time in seconds (default 3600).
+     * @param string $tag taggedcache alias.
      * @param string $cacheDir The cache directory (default '/view_data_cache/').
      * @return mixed The cached data or result from the callback.
      */
-    public function cache(string $cacheKey, callable $callback, int $cacheTime = 3600, string $cacheDir = '/view_data_cache/'): mixed
+    public function cache(
+        string $cacheKey,
+        callable $callback,
+        int $cacheTime = 36000,
+        string $tag = '',
+        string $cacheDir = '/view_data_cache/'
+    ): mixed
     {
         $cache = Cache::createInstance();
+        $taggedCache = Application::getInstance()->getTaggedCache(); 
 
-        // Check if cache is available
+
         if ($cache->initCache($cacheTime, $cacheKey, $cacheDir)) {
             return $cache->getVars();
         }
 
-        // Start caching if data is not available
+
         if ($cache->startDataCache()) {
             $data = $callback();
+            if ($tag) {
+                $taggedCache->startTagCache($cacheDir);
+            }
 
-            // Abort cache if no data is returned
+            if ($tag) {
+                $taggedCache->registerTag($tag);
+            }
+
+
             if ($data === false || $data === null) {
                 $cache->abortDataCache();
             } else {
-                // End caching and store the data
                 $cache->endDataCache($data);
+                if ($tag) {
+                    $taggedCache->endTagCache();
+                }
             }
 
             return $data;
