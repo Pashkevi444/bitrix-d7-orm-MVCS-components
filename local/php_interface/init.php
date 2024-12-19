@@ -13,7 +13,7 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/autolo
     require($_SERVER["DOCUMENT_ROOT"] . '/local/php_interface/include/autoload.php');
 }
 
-if (!\Bitrix\Main\Loader::includeModule('soul.main')) {
+if (!\Bitrix\Main\Loader::includeModule('paul.main')) {
  die('The main module include error');
 }
 
