@@ -16,7 +16,7 @@ class FavoritesService
      * @param int|null $itemId The ID of the item to delete from the favorites.
      * @return JsonResponse Response in JSON format.
      */
-    protected function delete(?int $itemId): JsonResponse
+    public function delete(?int $itemId): JsonResponse
     {
         try {
             if ($itemId === null) {
@@ -42,7 +42,7 @@ class FavoritesService
      * @param int|null $itemId The ID of the item to add to the favorites.
      * @return JsonResponse Response in JSON format.
      */
-    protected function add(?int $itemId): JsonResponse
+    public function add(?int $itemId): JsonResponse
     {
         try {
             if ($itemId === null) {
