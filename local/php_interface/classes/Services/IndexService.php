@@ -19,7 +19,7 @@ class IndexService extends \IblockHelper
      * @return array The processed test data with options.
      * @throws \Exception if an error occurs during data retrieval.
      */
-    protected function getTestData(OptionsData $optionsData): array
+    public function getTestData(OptionsData $optionsData): array
     {
         try {
             $this->initIblokHelper(new ElementTestTable());

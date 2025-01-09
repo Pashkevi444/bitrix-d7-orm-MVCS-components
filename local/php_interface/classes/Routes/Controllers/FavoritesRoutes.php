@@ -1,13 +1,13 @@
 <?php
 namespace Routes\Controllers;
 
-use App\Traits\ApiCore;
 use \Controllers\FavoritesController;
 use Bitrix\Main\HttpRequest;
 use Bitrix\Main\Routing\RoutingConfigurator;
-class FavoritesRoutes extends FavoritesController
+use Services\FavoritesService;
+
+class FavoritesRoutes
 {
-    use ApiCore;
 
     /**
      * @param RoutingConfigurator $routes
@@ -19,7 +19,7 @@ class FavoritesRoutes extends FavoritesController
         $routes
             ->name('api-favorites-delete')
             ->any('/api/favorites/{idElement}/', function (HttpRequest $request) {
-                return $this->deleteAction();
+                return (new FavoritesController(new FavoritesService()))->deleteAction();
             })->methods(['DELETE', 'OPTIONS']);// Для корса сразу опшенсы прокидываю
     }
 
@@ -33,7 +33,7 @@ class FavoritesRoutes extends FavoritesController
         $routes
             ->name('api-favorites-add')
             ->any('/api/favorites/{idElement}/', function (HttpRequest $request) {
-                return $this->addAction();
+                return (new FavoritesController(new FavoritesService()))->addAction();
             })->methods(['PUT', 'OPTIONS']);// Для корса сразу опшенсы прокидываю
     }
 
